@@ -3,6 +3,10 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Arquivos de banco de dados
+db_loja_brinquedos.sql
+db_model.mwb
+
 # User-specific files
 *.rsuser
 *.suo
