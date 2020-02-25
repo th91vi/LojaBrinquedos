@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using LojaBrinquedos.Models;
 using LojaBrinquedos.Uteis;
+using Microsoft.AspNetCore.Http;
 
 namespace LojaBrinquedos.Controllers
 {
@@ -17,6 +18,36 @@ namespace LojaBrinquedos.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+        }
+
+        public IActionResult Menu()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(LoginModel login)
+        {
+            if (ModelState.IsValid)
+            {
+                bool loginOK = login.ValidarLogin();
+                if (loginOK)
+                {
+                    HttpContext.Session.SetString("IdUsuarioLogado", login.Id);
+                    HttpContext.Session.SetString("NomeUsuarioLogado", login.Nome);
+                    return RedirectToAction("Menu", "Home");
+                } else
+                {
+                    TempData["ErrorLogin"] = "Invalid email or password";
+                }
+            }
+            return View();
         }
 
         public IActionResult Index()
