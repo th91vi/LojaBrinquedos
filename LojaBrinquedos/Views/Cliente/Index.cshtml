@@ -1,0 +1,38 @@
+﻿<h3>Lista de Clientes</h3>
+
+<table class="table table-bordered mb-3">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+
+            foreach (var item in (List<ClienteModel>)ViewBag.ListaClientes) // casting implicito
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Nome</td>
+                    <td>@item.CPF</td>
+                    <td>@item.Email</td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+<button class="btn btn-block btn-primary" type="button" id="btnCadastrar">Cadastrar Cliente</button>
+
+<script>
+    function cadastrar() {
+        window.location.href = "../Cliente/Cadastro";
+    }
+
+    const btnCadastrar = document.getElementById('btnCadastrar');
+    btnCadastrar.addEventListener('click', cadastrar);
+</script>
