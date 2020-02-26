@@ -19,6 +19,8 @@ namespace LojaBrinquedos.Controllers
         [HttpPost]
         public IActionResult Registrar(VendaModel venda)
         {
+            venda.Inserir();
+            CarregarDados();
             return View();
         }
 

@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-md-8 mx-auto">
         <form asp-controller="Venda" asp-action="Registrar">
-            <input type="hidden" asp-for="Id" value="@try{@ViewBag.Venda.Id} catch{}" /> @*Se der erro não faça nada!?*@
+            @*<input type="hidden" asp-for="Id" value="@try{@ViewBag.Venda.Id} catch{}" />*@ @*Se der erro não faça nada!?*@
 
         <div class="row">
             <div class="col-md-6">
@@ -77,9 +77,14 @@
                 <tbody id="ListaProdutos"></tbody>
             </table>
 
+            <h2>Total da compra</h2>
+            <h3 id="valorTotalTexto"></h3>
 
-                <button type="submit" class="btn btn-block btn-success">Cadastrar</button>
-</form>
+            <textarea asp-for="ListaProdutos" id="arrayListaProdutos" hidden></textarea>
+            <input type="hidden" asp-for="TotalCompra" id="valorTotalCompra" />
+
+            <button type="submit" class="btn btn-block btn-success">Cadastrar</button>
+        </form>
     </div>
 </div>
 
@@ -89,31 +94,37 @@
 
     const CodigoProduto = document.getElementById("selectProdutos");
     const QuantidadeProduto = document.getElementById("inputQuantidade");
+    const valorTotalTexto = document.getElementById('valorTotalTexto');
     const ListaProdutos = document.getElementById("ListaProdutos");
+    const arrayListaProdutos = document.getElementById('arrayListaProdutos');
+    const valorTotalCompra = document.getElementById('valorTotalCompra');
 
     function adicionarProduto() {
         const Descricao = CodigoProduto.options[CodigoProduto.selectedIndex].text;
         let arrayDescricao = Descricao.split('|');
-        let ValorTotal = parseFloat(arrayDescricao[1]) * QuantidadeProduto.value;
+        let ValorTotal = parseFloat(arrayDescricao[1]).toFixed(2).replace(",",".") * parseFloat(QuantidadeProduto.value).toFixed(2);
 
         let Produto = `<tr>
                         <td>${CodigoProduto.value}</td>
                         <td>${arrayDescricao[0]}</td>
                         <td>${QuantidadeProduto.value}</td>
-                        <td>R$ ${parseFloat(arrayDescricao[1])}</td>
-                        <td>R$ ${ValorTotal}</td>
+                        <td>R$ ${parseFloat(arrayDescricao[1]).toFixed(2)}</td>
+                        <td>R$ ${parseFloat(ValorTotal).toFixed(2)}</td>
                     </tr>`;
-
-        console.log(parseFloat(arrayDescricao[1]));
 
         Itens.Produtos.push({
             "CodigoProduto": CodigoProduto.value,
             "QuantidadeProduto": QuantidadeProduto.value,
             "DescricaoProduto": arrayDescricao[0],
-            "PrecoUnitario": parseFloat(arrayDescricao[1]),
-            "ValorTotal": ValorTotal
+            "PrecoUnitario": parseFloat(arrayDescricao[1]).toFixed(2),
+            "ValorTotal": parseFloat(ValorTotal).toFixed(2)
         });
 
+        arrayListaProdutos.innerHTML = JSON.stringify(Itens.Produtos);
+
         ListaProdutos.innerHTML += Produto;
+        valorTotalTexto.innerHTML = valorTotalTexto.innerText * 1 + ValorTotal;
+
+        valorTotalCompra.value = parseFloat(valorTotalTexto.innerText).toFixed(2).replace(".",",");
     }
 </script>

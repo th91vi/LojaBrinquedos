@@ -39,11 +39,11 @@
             </div>
             <div class="form-group">
                 <label>Imagem</label>
+                <input class="form-control" asp-for="Link_Foto" type="text" value="@try{@ViewBag.Produto.Link_Foto} catch{}" />
+                <span asp-validation-for="Link_Foto" class="text-danger"></span>
                 @try
                 {<img class="img-fluid mb-3" src="@ViewBag.Produto.Link_Foto" width="200" height="200" />}
                 catch { }
-                <input class="form-control" asp-for="Link_Foto" type="text" value="@try{@ViewBag.Produto.Link_Foto} catch{}" />
-                <span asp-validation-for="Link_Foto" class="text-danger"></span>
             </div>
 
             <button type="submit" class="btn btn-block btn-success">Cadastrar</button>
