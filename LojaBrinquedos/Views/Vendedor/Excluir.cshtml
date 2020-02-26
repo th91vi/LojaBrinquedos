@@ -1,0 +1,11 @@
+﻿<h2>Excluir Vendedor</h2>
+
+<h3>Deseja realmente excluir o vendedor selecionado?</h3>
+
+<button typo="button"class="btn btn-danger" id="cancelaExcluir">Não</button>
+<button typo="button" class="btn btn-warning" id="confirmaExcluir">Sim</button>
+
+<script>
+    const confirmaExcluir = document.getElementById('confirmaExcluir').addEventListener('click', () => { window.location.href = '../../Vendedor/ExcluirVendedor/' + '@ViewData["IdExcluir"].ToString()'})
+    const cancelaExcluir = document.getElementById('cancelaExcluir').addEventListener('click', () => { window.location.href = '../../Vendedor/Index'})
+</script>

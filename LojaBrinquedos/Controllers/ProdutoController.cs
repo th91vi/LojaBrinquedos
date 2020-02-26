@@ -7,11 +7,11 @@ using LojaBrinquedos.Models;
 
 namespace LojaBrinquedos.Controllers
 {
-    public class ClienteController : Controller
+    public class ProdutoController : Controller
     {
         public IActionResult Index()
         {
-            ViewBag.ListaClientes = new ClienteModel().ListarTodosClientes();
+            ViewBag.ListaProdutos = new ProdutoModel().ListarTodosProdutos();
             return View();
         }
 
@@ -19,19 +19,19 @@ namespace LojaBrinquedos.Controllers
         public IActionResult Cadastro(int? id)
         {
 
-            if (id != null) // Carrega registro do cliente numa Viewbag
+            if (id != null) // Carrega registro do Produto numa Viewbag
             {
-                ViewBag.Cliente = new ClienteModel().RetornarCliente(id);
+                ViewBag.Produto = new ProdutoModel().RetornarProduto(id);
             }
             return View();
         }
 
         [HttpPost]
-        public IActionResult Cadastro(ClienteModel cliente)
+        public IActionResult Cadastro(ProdutoModel Produto)
         {
             if (ModelState.IsValid)
             {
-                cliente.Gravar();
+                Produto.Gravar();
                 return RedirectToAction("Index");
             }
             return View();
@@ -43,9 +43,9 @@ namespace LojaBrinquedos.Controllers
             return View();
         }
 
-        public IActionResult ExcluirCliente(int id)
+        public IActionResult ExcluirProduto(int id)
         {
-            new ClienteModel().ExcluirCliente(id);
+            new ProdutoModel().ExcluirProduto(id);
             return View();
         }
     }

@@ -5,19 +5,21 @@
 <div class="row">
     <div class="col-md-6 mx-auto">
         <form asp-controller="Cliente" asp-action="Cadastro">
+            <input type="hidden" asp-for="Id" value="@try{@ViewBag.Cliente.Id} catch{}" /> @*Se der erro não faça nada!?*@ 
+
             <div class="form-group">
                 <label>Nome</label>
-                <input class="form-control" asp-for="Nome" type="text" />
+                <input class="form-control" asp-for="Nome" type="text" value="@try{@ViewBag.Cliente.Nome} catch{}" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label>CPF ou CNPJ</label>
-                <input class="form-control" asp-for="CPF" type="text" />
+                <input class="form-control" asp-for="CPF" type="text" value="@try{@ViewBag.Cliente.CPF} catch{}"/>
                 <span asp-validation-for="CPF" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label>Email</label>
-                <input class="form-control" asp-for="Email" type="email" />
+                <input class="form-control" asp-for="Email" type="email" value="@try{@ViewBag.Cliente.Email} catch{}"/>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 

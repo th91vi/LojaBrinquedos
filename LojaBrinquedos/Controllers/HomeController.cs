@@ -34,7 +34,7 @@ namespace LojaBrinquedos.Controllers
                 if (id == 0)
                 {
                     HttpContext.Session.SetString("IdUsuarioLogado", string.Empty);
-                    HttpContext.Session.SetString("NomeUsuarioLogado", string.Empty);
+                    HttpContext.Session.SetString("EmailUsuarioLogado", string.Empty);
                 }
             }
             return View();
@@ -49,7 +49,7 @@ namespace LojaBrinquedos.Controllers
                 if (loginOK)
                 {
                     HttpContext.Session.SetString("IdUsuarioLogado", login.Id);
-                    HttpContext.Session.SetString("NomeUsuarioLogado", login.Nome);
+                    HttpContext.Session.SetString("EmailUsuarioLogado", login.Email);
                     return RedirectToAction("Menu", "Home");
                 } else
                 {

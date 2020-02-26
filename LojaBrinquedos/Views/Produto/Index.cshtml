@@ -7,42 +7,46 @@
             <th>&nbsp;</th>
             <th>Id</th>
             <th>Nome</th>
-            <th>CPF</th>
-            <th>Email</th>
+            <th>Descrição</th>
+            <th>Preço Unitário</th>
+            <th>Quantidade em estoque</th>
+            <th>Imagem</th>
         </tr>
     </thead>
     <tbody>
 
         @{
 
-            foreach (var item in (List<ClienteModel>)ViewBag.ListaClientes) // casting implicito
+            foreach (var item in (List<ProdutoModel>)ViewBag.ListaProdutos) // casting implicito
             {
                 <tr>
                     <td><button type="button" class="btn btn-warning" id="btnEditar" onclick="editar(@item.Id)">Editar</button></td>
                     <td><button type="button" class="btn btn-danger" id="btnExcluir" onclick="excluir(@item.Id)">Excluir</button></td>
                     <td>@item.Id</td>
                     <td>@item.Nome</td>
-                    <td>@item.CPF</td>
-                    <td>@item.Email</td>
+                    <td>@item.Descricao</td>
+                    <td>@item.Preco_Unitario</td>
+                    <td>@item.Quantidade_Estoque</td>
+                    <td><img class="img-fluid" src="@item.Link_Foto" width="200" height="200" /></td>
                 </tr>
             }
         }
 
     </tbody>
 </table>
-<button class="btn btn-block btn-primary" type="button" id="btnCadastrar">Cadastrar Cliente</button>
+<button class="btn btn-block btn-primary" type="button" id="btnCadastrar">Cadastrar Produto</button>
 
 <script>
     function cadastrar() {
-        window.location.href = "../Cliente/Cadastro";
+        window.location.href = "../Produto/Cadastro";
     }
 
     function editar(id) {
-        window.location.href = "../Cliente/Cadastro/" + id;
+        window.location.href = "../Produto/Cadastro/" + id;
     }
 
     function excluir(id) {
-        window.location.href = "../Cliente/Excluir/" + id;
+        window.location.href = "../Produto/Excluir/" + id;
     }
 
     const btnCadastrar = document.getElementById('btnCadastrar');

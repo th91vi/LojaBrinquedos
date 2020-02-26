@@ -26,7 +26,7 @@ namespace LojaBrinquedos.Models
         // método abaixo permite injeção de SQL. Corrigir adiante
         public bool ValidarLogin()
         {
-            string sql = $"SELECT ID, NOME FROM VENDEDOR WHERE EMAIL='{Email}'AND SENHA='{Senha}'";
+            string sql = $"SELECT ID, NOME FROM CLIENTE WHERE EMAIL='{Email}'AND SENHA='{Senha}'";
             DAL objDAL = new DAL();
             DataTable dt = objDAL.RetDataTable(sql);
             if (dt.Rows.Count == 1)

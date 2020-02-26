@@ -1,0 +1,56 @@
+﻿@model ProdutoModel
+
+<h2 class="mb-3">Cadastro de Produtos</h2>
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <form asp-controller="Produto" asp-action="Cadastro">
+            <input type="hidden" asp-for="Id" value="@try{@ViewBag.Produto.Id} catch{}" /> @*Se der erro não faça nada!?*@
+
+            <div class="form-group">
+                <label>Nome</label>
+                <input class="form-control" asp-for="Nome" type="text" value="@try{@ViewBag.Produto.Nome} catch{}" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Descrição</label>
+                @{
+                    var vDescicao = "";
+                    try
+                    {
+                        vDescicao = ViewBag.Produto.Descricao;
+                    }
+                    catch { }
+                 }
+
+                @Html.TextArea("Descricao", vDescicao, new { @class = "form-control" })
+                @*<input class="form-control" asp-for="Descricao" type="text" value="@try{@ViewBag.Produto.Descricao} catch{}" />*@
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Preço Unitário</label>
+                <input class="form-control" asp-for="Preco_Unitario" type="text" value="@try{@ViewBag.Produto.Preco_Unitario} catch{}" data-mask="000.000.000.000.000,00" data-mask-reverse="true" />
+                <span asp-validation-for="Preco_Unitario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Quantidade em Estoque</label>
+                <input class="form-control" asp-for="Quantidade_Estoque" type="text" value="@try{@ViewBag.Produto.Quantidade_Estoque} catch{}" />
+                <span asp-validation-for="Quantidade_Estoque" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Imagem</label>
+                @try
+                {<img class="img-fluid mb-3" src="@ViewBag.Produto.Link_Foto" width="200" height="200" />}
+                catch { }
+                <input class="form-control" asp-for="Link_Foto" type="text" value="@try{@ViewBag.Produto.Link_Foto} catch{}" />
+                <span asp-validation-for="Link_Foto" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-block btn-success">Cadastrar</button>
+            <button type="button" class="btn btn-block btn-primary mb-2" onclick="voltar()">Listagem de Produtos</button>
+        </form>
+    </div>
+</div>
+<script>
+    function voltar() { window.location.href = '../../Produto/Index' };
+</script>
