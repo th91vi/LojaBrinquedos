@@ -33,6 +33,15 @@ namespace LojaBrinquedos.Uteis
             return data;
         }
 
+        public DataTable RetDataTable(MySqlCommand Command)
+        {
+            DataTable data = new DataTable();
+            Command.Connection = Connection;
+            MySqlDataAdapter DataAdapter = new MySqlDataAdapter(Command);
+            DataAdapter.Fill(data);
+            return data;
+        }
+
         // Espera um parâmetro do tipo string contendo um comando SQl do tipo INSERT, UPDATE, DELETE
         // É executado primeiramente em HomeController
         public void ExecutarComandoSQL(string sql) 

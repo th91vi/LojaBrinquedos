@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Data;
 using LojaBrinquedos.Uteis;
 using System.ComponentModel.DataAnnotations;
+using MySql.Data.MySqlClient;
 
 namespace LojaBrinquedos.Models
 {
@@ -23,12 +24,16 @@ namespace LojaBrinquedos.Models
         [Required(ErrorMessage = "Insert correct user password.")]
         public string Senha { get; set; }
 
-        // método abaixo permite injeção de SQL. Corrigir adiante
         public bool ValidarLogin()
         {
-            string sql = $"SELECT ID, NOME FROM CLIENTE WHERE EMAIL='{Email}'AND SENHA='{Senha}'";
+            string sql = $"SELECT ID, NOME FROM CLIENTE WHERE EMAIL=@email AND SENHA=@senha";
+            MySqlCommand Command = new MySqlCommand();
+            Command.CommandText = sql;
+            Command.Parameters.AddWithValue("@email", Email);
+            Command.Parameters.AddWithValue("@senha", Senha);
+
             DAL objDAL = new DAL();
-            DataTable dt = objDAL.RetDataTable(sql);
+            DataTable dt = objDAL.RetDataTable(Command);
             if (dt.Rows.Count == 1)
             {
                 Id = dt.Rows[0]["id"].ToString();
