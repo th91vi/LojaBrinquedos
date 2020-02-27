@@ -1,0 +1,42 @@
+﻿<h1>Listagem de Vendas</h1>
+
+<table class="table table-bordered mb-3">
+    <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>Id</th>
+            <th>Data</th>
+            <th>Vendedor</th>
+            <th>Cliente</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+
+            foreach (var item in (List<VendaModel>)ViewBag.ListaVendas) // casting implicito
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Data</td>
+                    <td>@item.Vendedor_Id</td>
+                    <td>@item.Cliente_Id</td>
+                    <td>R$ @item.TotalCompra</td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+<button class="btn btn-block btn-primary" type="button" id="btnCadastrar">Registrar Venda</button>
+
+<script>
+    function cadastrar() {
+        window.location.href = "../Venda/Registrar";
+    }
+
+    const btnCadastrar = document.getElementById('btnCadastrar');
+    btnCadastrar.addEventListener('click', cadastrar);
+</script>

@@ -6,15 +6,42 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace LojaBrinquedos.Models
 {
     public class VendaModel
     {
         public string Id { get; set; }
+        public string Data { get; set; }
         public string Cliente_Id { get; set; }
         public string Vendedor_Id { get; set; }
         public string ListaProdutos { get; set; }
         public double TotalCompra { get; set; }
+
+        public List<VendaModel> ListagemVendas()
+        {
+            List<VendaModel> lista = new List<VendaModel>();
+            VendaModel item;
+            DAL objDAL = new DAL();
+            string sql = "select v1.id, v1.data, v1.total, v2.nome as vendedor, c.nome as cliente from " +
+                         "venda v1 inner join vendedor v2 on v1.vendedor_id = v2.id inner join cliente c " +
+                         "on v1.cliente_id = c.id order by data, total";
+            DataTable dt = objDAL.RetDataTable(sql);
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                item = new VendaModel
+                {
+                    Id = dt.Rows[i]["id"].ToString(),
+                    Data = DateTime.Parse(dt.Rows[i]["data"].ToString()).ToString("dd/MM/yyyy"),
+                    TotalCompra = double.Parse(dt.Rows[i]["total"].ToString()),
+                    Cliente_Id = dt.Rows[i]["cliente"].ToString(),
+                    Vendedor_Id = dt.Rows[i]["vendedor"].ToString(),
+                };
+                lista.Add(item);
+            }
+            return lista;
+        }
 
         public List<ClienteModel> RetornarListaClientes()
         {

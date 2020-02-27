@@ -7,34 +7,34 @@
         <form asp-controller="Venda" asp-action="Registrar">
             @*<input type="hidden" asp-for="Id" value="@try{@ViewBag.Venda.Id} catch{}" />*@ @*Se der erro não faça nada!?*@
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Cliente</label>
-                    <select asp-for="Cliente_Id" class="form-control">
-                        @{
-                            foreach (var item in (List<ClienteModel>)ViewBag.ListaClientes)
-                            {
-                                <option value="@item.Id">@item.Nome</option>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Cliente</label>
+                        <select asp-for="Cliente_Id" class="form-control">
+                            @{
+                                foreach (var item in (List<ClienteModel>)ViewBag.ListaClientes)
+                                {
+                                    <option value="@item.Id">@item.Nome</option>
+                                }
                             }
-                        }
-                    </select>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Vendedor</label>
+                        <select asp-for="Vendedor_Id" class="form-control">
+                            @{
+                                foreach (var item in (List<VendedorModel>)ViewBag.ListaVendedores)
+                                {
+                                    <option value="@item.Id">@item.Nome</option>
+                                }
+                            }
+                        </select>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Vendedor</label>
-                    <select asp-for="Vendedor_Id" class="form-control">
-                        @{
-                            foreach (var item in (List<VendedorModel>)ViewBag.ListaVendedores)
-                            {
-                                <option value="@item.Id">@item.Nome</option>
-                            }
-                        }
-                    </select>
-                </div>
-            </div>
-        </div>
 
 
             <div class="row">
@@ -83,7 +83,8 @@
             <textarea asp-for="ListaProdutos" id="arrayListaProdutos" hidden></textarea>
             <input type="hidden" asp-for="TotalCompra" id="valorTotalCompra" />
 
-            <button type="submit" class="btn btn-block btn-success">Cadastrar</button>
+            <button type="submit" class="btn btn-block btn-success">Registrar</button>
+            <button type="button" class="btn btn-block btn-primary" onclick="VoltarListagem()">Listagem de Vendas</button>
         </form>
     </div>
 </div>
@@ -98,6 +99,10 @@
     const ListaProdutos = document.getElementById("ListaProdutos");
     const arrayListaProdutos = document.getElementById('arrayListaProdutos');
     const valorTotalCompra = document.getElementById('valorTotalCompra');
+
+    function VoltarListagem() {
+        window.location.href = '../Venda/Index';
+    }
 
     function adicionarProduto() {
         const Descricao = CodigoProduto.options[CodigoProduto.selectedIndex].text;
